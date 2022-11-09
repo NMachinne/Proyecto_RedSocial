@@ -3,15 +3,17 @@ package proyecto.Postt.com.model.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Post {
+import proyecto.Postt.com.Interfaces.IPost;
+
+public class Post implements IPost {
 	protected int id;
 	protected String fecha;
 	protected String txt;
 	protected String multimedia;
-	protected List<User> likes;
-	protected List<Comment> comment;
+	protected User likes;
+	protected Comment comment;
 
-	public Post(int id, String fecha, String txt, String multimedia, List<User> likes, List<Comment> comment) {
+	public Post(int id, String fecha, String txt, String multimedia, User likes, Comment comment) {
 		this.id = id;
 		this.fecha = fecha;
 		this.txt = txt;
@@ -21,8 +23,15 @@ public class Post {
 	}
 
 	public Post() {
-			this(-1,"","","",new ArrayList<User>(),new ArrayList<Comment>());
+			this(-1,"","","",null,null);
 
+	}
+	
+	public Post(int id, String fecha, String txt, String multimedia) {
+		this.id = id;
+		this.fecha = fecha;
+		this.txt = txt;
+		this.multimedia = multimedia;
 	}
 
 	public int getId() {
@@ -57,19 +66,19 @@ public class Post {
 		this.multimedia = multimedia;
 	}
 
-	public List<User> getLikes() {
+	public User getLikes() {
 		return likes;
 	}
 
-	public void setLikes(List<User> likes) {
+	public void setLikes(User likes) {
 		this.likes = likes;
 	}
 
-	public List<Comment> getComment() {
+	public Comment getComment() {
 		return comment;
 	}
 
-	public void setComment(List<Comment> comment) {
+	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
 
@@ -100,5 +109,7 @@ public class Post {
 		return "Post [id=" + id + ", fecha=" + fecha + ", txt=" + txt + ", multimedia=" + multimedia + ", likes="
 				+ likes + ", comment=" + comment + "]";
 	}
+
+
 
 }
