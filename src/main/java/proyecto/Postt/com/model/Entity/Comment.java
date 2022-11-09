@@ -1,15 +1,16 @@
 package proyecto.Postt.com.model.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Comment {
+
+import proyecto.Postt.com.Interfaces.IComment;
+
+public class Comment implements IComment {
 	protected String fecha;
 	protected String txt;
-	protected List<User> user;
-	protected List<Post> post;
+	protected User user;
+	protected Post post;
 
-	public Comment(String fecha, String txt, List<User> user, List<Post> post) {
+	public Comment(String fecha, String txt, User user, Post post) {
 
 		this.fecha = fecha;
 		this.txt = txt;
@@ -17,9 +18,8 @@ public class Comment {
 		this.post = post;
 	}
 	
-	
 	public Comment() {
-		this("","",new ArrayList<User>(),new ArrayList<Post>());
+		this("","",null,null);
 
 	}
 
@@ -39,19 +39,19 @@ public class Comment {
 		this.txt = txt;
 	}
 
-	public List<User> getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(List<User> user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public List<Post> getPost() {
+	public Post getPost() {
 		return post;
 	}
 
-	public void setPost(List<Post> post) {
+	public void setPost(Post post) {
 		this.post = post;
 	}
 

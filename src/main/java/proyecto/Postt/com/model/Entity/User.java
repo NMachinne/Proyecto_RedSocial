@@ -28,13 +28,17 @@ public class User implements IUser {
 		this.followed = followed;
 		this.follower = follower;
 	}
-
 	
 	public User() {
 		this(-1,"","","",new ArrayList<Post>(),new ArrayList<Comment>(),new ArrayList<Post>(),new ArrayList<User>(),new ArrayList<User>());
 	}
 	
-	
+	public User(int id, String nombre, String password, String avatar) {
+		this.id = id;
+		this.nombre = nombre;
+		this.password = password;
+		this.avatar = avatar;
+	}
 
 	public int getId() {
 		return id;

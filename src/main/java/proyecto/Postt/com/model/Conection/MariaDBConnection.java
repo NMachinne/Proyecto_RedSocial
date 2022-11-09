@@ -9,10 +9,10 @@ public class MariaDBConnection{
 	
 	//Solo en fase alpha
 	private final static String uri = "jdbc:mariadb://localhost:3306/postt";
-	private final static String user = "root";
-	private final static String password = "";
+	protected final static String user = "root";
+	protected final static String password = "";
 	
-	private MariaDBConnection() {}
+	protected MariaDBConnection() {}
 	/**
 	 * Método static que devuelve la conexión a la bd
 	 * @return la conexión o null en caso de error
