@@ -19,36 +19,35 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class UserController implements Initializable{
+public class UserController implements Initializable {
 
 	// variables para el perfil del usuario
-	@FXML
-	private Button delPost;
+    @FXML
+    private Button delPost;
 
-	@FXML
-	private Button editPost;
+    @FXML
+    private Button editPerfil;
 
-	@FXML
-	private Text getNameUser;
+    @FXML
+    private Text getNameUser;
 
-	@FXML
-	private ImageView imgUser;
+    @FXML
+    private ImageView imgUser;
 
-	@FXML
-	private Text nFollowed;
+    @FXML
+    private Text nFollowed;
 
-	@FXML
-	private Text nFollower1;
+    @FXML
+    private Text nFollower1;
 
-	@FXML
-	private Text nPost;
+    @FXML
+    private Text nPost;
 
-	@FXML
-	private GridPane postGrid;
-	// private List<Post> posts; //para post
-
+    @FXML
+    private GridPane postGrid;
 	@FXML
 	private ScrollPane userPosts;
+	// private List<Post> posts; //para post
 
 	// variables de la lista de seguidos/seguidores
 	@FXML
@@ -67,14 +66,33 @@ public class UserController implements Initializable{
 	@FXML
 	private Text nameFolllowUser;
 
+	/**
+	 * accede a la seccion de seguidos
+	 * @param event
+	 */
 	@FXML
 	void openFollowed(MouseEvent event) {
 
 	}
-
+	/**
+	 * accede a la seccion de seguidores
+	 * @param event
+	 */
 	@FXML
 	void openFollower(MouseEvent event) {
 
+	}
+
+	/**
+	 * Edita el perfil del propio usuario
+	 * @param event
+	 */	
+	@FXML
+	void PerfilEdit(ActionEvent event) {
+		delPost.setVisible(true);
+		imgUser.setVisible(true);
+		delPost.setDisable(false);
+		imgUser.setDisable(false);
 	}
 
 	/**
@@ -88,14 +106,17 @@ public class UserController implements Initializable{
 
 	/**
 	 * Permite editar los post del usuario
+	 * 
 	 * @param event
 	 */
 	@FXML
 	void selectedPostEdit(ActionEvent event) {
 
 	}
+
 	/**
 	 * Cambia la imagen del Avatar del usuario
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -105,6 +126,7 @@ public class UserController implements Initializable{
 
 	/**
 	 * Deja de seguir al usuario
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -114,8 +136,7 @@ public class UserController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
+
 	}
 
 	/*
