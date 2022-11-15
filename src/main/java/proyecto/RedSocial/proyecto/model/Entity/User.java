@@ -1,7 +1,5 @@
 package proyecto.RedSocial.proyecto.model.Entity;
 
-import java.util.*;
-
 import proyecto.RedSocial.proyecto.Interfaces.IUser;
 
 public class User implements IUser {
@@ -9,15 +7,15 @@ public class User implements IUser {
 	protected String nombre;
 	protected String password;
 	protected String avatar;
-	protected List<Post> post;
-	protected List<Comment> comment;
-	protected List<Post> likes;
-	protected List<User> followed;
-	protected List<User> follower;
+	protected Post post;
+	protected Comment comment;
+	protected Post likes;
+	protected User followed;
+	protected User follower;
 
 	
-	public User(int id, String nombre, String password, String avatar, List<Post> post, List<Comment> comment,
-			List<Post> likes, List<User> followed, List<User> follower) {
+	public User(int id, String nombre, String password, String avatar, Post post, Comment comment,
+			Post likes, User followed, User follower) {
 		this.id = id;
 		this.nombre = nombre;
 		this.password = password;
@@ -30,7 +28,7 @@ public class User implements IUser {
 	}
 	
 	public User() {
-		this(-1,"","","",new ArrayList<Post>(),new ArrayList<Comment>(),new ArrayList<Post>(),new ArrayList<User>(),new ArrayList<User>());
+		this(-1,"","","",null,null,null,null,null);
 	}
 	
 	public User(int id, String nombre, String password, String avatar) {
@@ -71,44 +69,46 @@ public class User implements IUser {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	
+	
 
-	public List<Post> getPost() {
+	public Post getPost() {
 		return post;
 	}
 
-	public void setPost(List<Post> post) {
+	public void setPost(Post post) {
 		this.post = post;
 	}
 
-	public List<Comment> getComment() {
+	public Comment getComment() {
 		return comment;
 	}
 
-	public void setComment(List<Comment> comment) {
+	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
 
-	public List<Post> getLikes() {
+	public Post getLikes() {
 		return likes;
 	}
 
-	public void setLikes(List<Post> likes) {
+	public void setLikes(Post likes) {
 		this.likes = likes;
 	}
 
-	public List<User> getFollowed() {
+	public User getFollowed() {
 		return followed;
 	}
 
-	public void setFollowed(List<User> followed) {
+	public void setFollowed(User followed) {
 		this.followed = followed;
 	}
 
-	public List<User> getFollower() {
+	public User getFollower() {
 		return follower;
 	}
 
-	public void setFollower(List<User> follower) {
+	public void setFollower(User follower) {
 		this.follower = follower;
 	}
 

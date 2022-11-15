@@ -1,8 +1,8 @@
-package proyecto.RedSocial.proyecto.model.DAO;
+package  proyecto.RedSocial.proyecto.model.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import proyecto.RedSocial.proyecto.model.Entity.User;
+import  proyecto.RedSocial.proyecto.model.Entity.User;
 
 public class UserDAO extends ADAO<User> {
 	//Las consultas MariaDB de este DAO
@@ -11,12 +11,13 @@ public class UserDAO extends ADAO<User> {
 	private final static String DELETE = "DELETE FROM user WHERE id=?";
 	private final static String SELECTBYID = "SELECT id,nombre,password,avatar FROM user WHERE id=?";
 	private final static String SELECTBYNAME = "SELECT id,nombre,password,avatar FROM user WHERE nombre=?";
+	private final static String SELECTBYFOLLOW = "SELECT id,id_usuario,null,null FROM follow WHERE id=?";
 	private final static String SELECTALL = "SELECT id,nombre,password,avatar FROM user";
 	// Fin de las consultas
 
 	public void save(User user) {
 		try {
-			super.create(user, INSERT, new Integer[] {1,2,3});
+			super.create(user, INSERT, new Integer[] {1, 2, 3});
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -42,9 +43,19 @@ public class UserDAO extends ADAO<User> {
 		return null;
 	}
 	
-	public Collection<User> getAll(User user) {
+	public Collection<User> getByFollow(User user) {
 		try {
-			Collection<User> u = super.read(user, SELECTALL, null);
+			Collection<User> u = super.read(user, SELECTBYFOLLOW, null);
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Collection<User> getAll() {
+		try {
+			Collection<User> u = super.read(new User(), SELECTALL, null);
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();

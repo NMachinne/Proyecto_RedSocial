@@ -1,8 +1,8 @@
-package proyecto.RedSocial.proyecto.model.DAO;
+package  proyecto.RedSocial.proyecto.model.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import proyecto.RedSocial.proyecto.model.Entity.Post;
+import  proyecto.RedSocial.proyecto.model.Entity.Post;
 
 public class PostDAO extends ADAO<Post> {
 	// Las consultas MariaDB de este DAO
@@ -10,6 +10,7 @@ public class PostDAO extends ADAO<Post> {
 	private final static String UPDATE = "UPDATE post SET fecha=?,texto=?,multimedia=? WHERE id=?";
 	private final static String DELETE = "DELETE FROM post WHERE id=?";
 	private final static String SELECTBYID = "SELECT id,fecha,texto,multimedia FROM post WHERE id=?";
+	private final static String SELECTBYID_USER = "SELECT id,fecha,texto,multimedia FROM post WHERE id_usuario=? ORDER BY id DESC LIMIT 1";
 	private final static String SELECTALL = "SELECT id,fecha,texto,multimedia FROM post";
 	// Fin de las consultas
 
@@ -30,10 +31,20 @@ public class PostDAO extends ADAO<Post> {
 		}
 		return null;
 	}
-
-	public Collection<Post> getAll(Post post) {
+	
+	public Collection<Post> getByIdUser(Post post) {
 		try {
-			Collection<Post> p = super.read(post, SELECTALL, null);
+			Collection<Post> p = super.read(post, SELECTBYID_USER, new Integer[] {1});
+			return p;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Collection<Post> getAll() {
+		try {
+			Collection<Post> p = super.read(new Post(), SELECTALL, null);
 			return p;
 		} catch (SQLException e) {
 			e.printStackTrace();
