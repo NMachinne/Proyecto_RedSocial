@@ -25,10 +25,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import proyecto.RedSocial.proyecto.model.Entity.Post;
 import proyecto.RedSocial.proyecto.model.Entity.User;
+import proyecto.RedSocial.proyecto.model.DAO.PostDAO;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class UserController extends AController {
+public class UserController extends AController implements Initializable {
 
 	// variables para el perfil del usuario con el archivo user.fxml
 	@FXML
@@ -56,6 +58,11 @@ public class UserController extends AController {
 
 	@FXML
 	private Text nPost;
+    @FXML
+    private Text idnameFollowed;
+
+    @FXML
+    private Text idnameFollower;
 
 	@FXML
 	private GridPane postGrid;
@@ -65,7 +72,7 @@ public class UserController extends AController {
 
 	// variables de la lista de seguidos/seguidores con el archivo follow-ed.fxml
 	@FXML
-    private VBox Vboxlayout;
+	private VBox Vboxlayout;
 
 	@FXML
 	private ScrollPane followUser;
@@ -80,8 +87,6 @@ public class UserController extends AController {
 	@FXML
 	private ImageView imgfollowuser;
 
-	@FXML
-	private Text nameFolllowUser;
 
 	/**
 	 * accede a la seccion de seguidos
@@ -92,25 +97,12 @@ public class UserController extends AController {
 	void openFollowed(MouseEvent event) {
 
 		try {
-			// getnameFollow.setText(namefollowed.getText());
+			nameFollow = idnameFollowed.getText();
 			App.setRoot("follow-ed");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-	}
-	
-	/**
-	 * vuelve al menu principal del usuario
-	 * @param event
-	 */
-	@FXML
-	void backtoMenu(MouseEvent event) {
-		try {
-			App.setRoot("post");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -122,12 +114,26 @@ public class UserController extends AController {
 	void openFollower(MouseEvent event) {
 
 		try {
-			App.setRoot("follow-ed");
-			// getnameFollow.setText(namefollower.getText());
+			nameFollow = idnameFollower.getText();
+			App.setRoot("follow-ed");		
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 
+	}
+
+	/**
+	 * vuelve al menu principal del usuario
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void backtoMenu(MouseEvent event) {
+		try {
+			App.setRoot("post");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -193,6 +199,18 @@ public class UserController extends AController {
 	 */
 	@FXML
 	void unfollowUser(ActionEvent event) {
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		PostDAO pd = new PostDAO();
+		UserDAO ud = new UserDAO();
+		getNameUser.setText(user.getNombre());
+		nPost.setText(pd.getAllByIdUser(new Post(user.getId(), "", "", "")).size() + "");
+		nFollowed.setText(ud.getByFollowed(user).size()+"");
+		nFollower.setText(ud.getByFollow(user).size()+"");
 
 	}
 

@@ -1,16 +1,27 @@
 package proyecto.RedSocial.proyecto;
 
 import proyecto.RedSocial.proyecto.model.Conection.MariaDBDatabase;
+import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
 public class Exe {
 
 	public static void main(String[] args) {
+		boolean no = false;
+		
 		try {
-			MariaDBDatabase.create();
+			if (new UserDAO().getAll() != null) {
+				no = true;
+			}
+
 		} catch (Exception e) {
-			System.out.println("Illo,..que la base datos ya esta creada");
+			e.printStackTrace();
 		}
 
+		if (!no) {
+			MariaDBDatabase.create();
+		}
+		
+		App.main(args);
 	}
 
 }

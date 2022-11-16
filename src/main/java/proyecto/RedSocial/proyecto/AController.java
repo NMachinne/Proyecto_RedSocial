@@ -10,5 +10,7 @@ public abstract class AController {
 	protected static Post post;
 
 	protected static User user;
+	
+	protected static String nameFollow;
 
 }

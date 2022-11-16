@@ -32,15 +32,15 @@
                         </Pane>
                         <Pane prefHeight="98.0" prefWidth="89.0">
                            <children>
-                              <Text fx:id="nFollower1" layoutX="18.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nFollower" />
-                              <Text layoutX="21.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Follower" />
+                              <Text fx:id="nFollower" layoutX="18.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nFollower" />
+                              <Text fx:id="idnameFollower" layoutX="21.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Follower" />
                               <Pane layoutX="11.0" layoutY="18.0" onMouseClicked="#openFollower" prefHeight="62.0" prefWidth="65.0" />
                            </children>
                         </Pane>
                         <Pane prefHeight="98.0" prefWidth="89.0">
                            <children>
                               <Text fx:id="nFollowed" layoutX="18.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nFollowed" />
-                              <Text layoutX="21.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Followed" />
+                              <Text fx:id="idnameFollowed" layoutX="21.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Followed" />
                               <Pane layoutX="11.0" layoutY="18.0" onMouseClicked="#openFollowed" prefHeight="62.0" prefWidth="65.0" />
                            </children>
                         </Pane>

@@ -1,8 +1,9 @@
-package  proyecto.RedSocial.proyecto.model.DAO;
+package proyecto.RedSocial.proyecto.model.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import  proyecto.RedSocial.proyecto.model.Entity.Post;
+import proyecto.RedSocial.proyecto.model.Entity.Post;
+import proyecto.RedSocial.proyecto.model.Entity.User;
 
 public class PostDAO extends ADAO<Post> {
 	// Las consultas MariaDB de este DAO
@@ -12,6 +13,7 @@ public class PostDAO extends ADAO<Post> {
 	private final static String SELECTBYID = "SELECT id,fecha,texto,multimedia FROM post WHERE id=?";
 	private final static String SELECTBYID_USER = "SELECT id,fecha,texto,multimedia FROM post WHERE id_usuario=? ORDER BY id DESC LIMIT 1";
 	private final static String SELECTALL = "SELECT id,fecha,texto,multimedia FROM post";
+	private final static String SELECTALLBYID_USER = "SELECT id,fecha,texto,multimedia FROM post WHERE id_usuario=?";
 	// Fin de las consultas
 
 	public void save(Post post) {
@@ -30,6 +32,16 @@ public class PostDAO extends ADAO<Post> {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Collection<Post> getAllByIdUser(Post post){
+		try {
+			Collection<Post> p = super.read(post, SELECTALLBYID_USER,new Integer[] {0});
+			return p;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;	
 	}
 	
 	public Collection<Post> getByIdUser(Post post) {

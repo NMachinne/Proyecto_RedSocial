@@ -1,8 +1,8 @@
-package  proyecto.RedSocial.proyecto.model.DAO;
+package proyecto.RedSocial.proyecto.model.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import  proyecto.RedSocial.proyecto.model.Entity.Comment;
+import proyecto.RedSocial.proyecto.model.Entity.Comment;
 
 public class CommentDAO extends ADAO<Comment>{
 	//Las consultas MariaDB de este DAO

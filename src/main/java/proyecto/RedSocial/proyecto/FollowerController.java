@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import proyecto.RedSocial.proyecto.model.Entity.User;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class FollowerController implements Initializable {
+public class FollowerController extends AController implements Initializable {
 
 	// variables de la lista de seguidos/seguidores con el archivo follow-ed.fxml
 	@FXML
@@ -39,6 +39,7 @@ public class FollowerController implements Initializable {
 
 	@FXML
 	private Text getnameFollow;
+	
 
 	/**
 	 * permite volver al perfil del usuario
@@ -56,6 +57,7 @@ public class FollowerController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		getnameFollow.setText(nameFollow);
 		List<User> useres = new ArrayList<>(useres());
 		for (int i = 0; i < useres.size(); i++) {
 			FXMLLoader fxmloader = new FXMLLoader();
