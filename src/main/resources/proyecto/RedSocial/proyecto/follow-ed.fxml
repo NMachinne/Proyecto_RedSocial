@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.FollowerController">
    <children>
       <AnchorPane layoutX="6.0">
          <children>
@@ -25,23 +29,36 @@
                </children></AnchorPane>
             <AnchorPane layoutX="-5.0" layoutY="71.0" prefHeight="326.0" prefWidth="396.0">
                <children>
-                  <ScrollPane fx:id="followUser" hbarPolicy="NEVER" layoutX="3.0" layoutY="15.0" prefHeight="298.0" prefWidth="393.0" vbarPolicy="ALWAYS">
+                  <ScrollPane fx:id="followUser" hbarPolicy="NEVER" layoutX="3.0" layoutY="15.0" prefHeight="310.0" prefWidth="391.0" vbarPolicy="ALWAYS">
                      <content>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="376.0" style="-fx-background-color: transparent;">
+                        <VBox fx:id="Vboxlayout" prefHeight="308.0" prefWidth="377.0">
                            <children>
-                              <AnchorPane layoutX="-1.0" prefHeight="52.0" prefWidth="377.0">
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="369.0" spacing="90.0">
                                  <children>
-                                    <ImageView fx:id="imgfollowuser" fitHeight="51.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                                        <image>
                                           <Image url="@../../../img/avatarUser.png" />
                                        </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
                                     </ImageView>
-                                    <Text fx:id="nameFolllowUser" layoutX="83.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nickname" />
-                                    <Button fx:id="btnUnfollow" layoutX="269.0" layoutY="7.0" mnemonicParsing="false" onAction="#unfollowUser" prefHeight="38.0" prefWidth="83.0" text="Unfollow" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="nickname" wrappingWidth="109.712890625">
+                                       <HBox.margin>
+                                          <Insets left="-80.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="Unfollow">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
                                  </children>
-                              </AnchorPane>
-                           </children>
-                        </AnchorPane>
+                              </HBox>
+                           </children></VBox>
                      </content>
                   </ScrollPane>
                </children>

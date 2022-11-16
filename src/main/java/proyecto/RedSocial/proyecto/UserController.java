@@ -15,17 +15,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import proyecto.RedSocial.proyecto.model.Entity.User;
+import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class UserController implements Initializable {
+public class UserController extends AController {
 
-	// variables para el perfil del usuario
+	// variables para el perfil del usuario con el archivo user.fxml
 	@FXML
 	private Button delPost;
 
@@ -42,7 +47,12 @@ public class UserController implements Initializable {
 	private Text nFollowed;
 
 	@FXML
-	private Text nFollower1;
+	private Text namefollowed;
+
+	@FXML
+	private Text namefollower;
+	@FXML
+	private Text nFollower;
 
 	@FXML
 	private Text nPost;
@@ -53,14 +63,17 @@ public class UserController implements Initializable {
 	private ScrollPane userPosts;
 	// private List<Post> posts; //para post
 
-	// variables de la lista de seguidos/seguidores
+	// variables de la lista de seguidos/seguidores con el archivo follow-ed.fxml
+	@FXML
+    private VBox Vboxlayout;
+
 	@FXML
 	private ScrollPane followUser;
 
 	@FXML
 	private Text getnameFollow;
 
-	// variables de seguidores
+	// variables de seguidores con el archivo itemUser.fxml
 	@FXML
 	private Button btnUnfollow;
 
@@ -77,16 +90,27 @@ public class UserController implements Initializable {
 	 */
 	@FXML
 	void openFollowed(MouseEvent event) {
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("follow-ed.fxml"));
-		getnameFollow.setText("FOLLOWER");
 
 		try {
+			// getnameFollow.setText(namefollowed.getText());
 			App.setRoot("follow-ed");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * vuelve al menu principal del usuario
+	 * @param event
+	 */
+	@FXML
+	void backtoMenu(MouseEvent event) {
+		try {
+			App.setRoot("post");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -96,31 +120,29 @@ public class UserController implements Initializable {
 	 */
 	@FXML
 	void openFollower(MouseEvent event) {
-		
-		
-		try {			
+
+		try {
 			App.setRoot("follow-ed");
-			Thread.sleep(2000);
-			getnameFollow.setText("FOLLOWER");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// getnameFollow.setText(namefollower.getText());
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+	}
+
+	/**
+	 * permite volver al perfil del usuario
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void backtoPerfil(MouseEvent event) {
+		try {
+			App.setRoot("user");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * permite volver al perfil del usuario
-	 * @param event
-	 */
-	 @FXML
-	    void backtoPerfil(MouseEvent event) {
-		 try {
-				App.setRoot("user");
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
 
 	/**
 	 * Edita el perfil del propio usuario
@@ -171,11 +193,6 @@ public class UserController implements Initializable {
 	 */
 	@FXML
 	void unfollowUser(ActionEvent event) {
-
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
 
 	}
 
