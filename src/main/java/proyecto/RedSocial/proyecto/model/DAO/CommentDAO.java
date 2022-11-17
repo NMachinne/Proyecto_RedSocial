@@ -23,7 +23,7 @@ public class CommentDAO extends ADAO<Comment>{
 	
 	public Collection<Comment> getById(Comment comment) {
 		try {
-			Collection<Comment> c = super.read(comment, SELECTBYID, new Integer[]{3});
+			Collection<Comment> c = super.read(comment, SELECTBYID, new Integer[]{1});
 			return c;
 		} catch (SQLException e) {
 			e.printStackTrace();

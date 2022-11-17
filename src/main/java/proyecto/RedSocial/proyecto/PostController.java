@@ -1,9 +1,11 @@
 package proyecto.RedSocial.proyecto;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -74,6 +76,10 @@ public class PostController extends AController implements Initializable, Runnab
     	t.start();
     }
     
+    /**
+     * Añade o Elimina el like al post
+     * @param event Objeto ActionEvent
+     */
     @FXML
     void blike(ActionEvent event) {
     	LocalDateTime locdate = LocalDateTime.now().withNano(0);
@@ -110,6 +116,7 @@ public class PostController extends AController implements Initializable, Runnab
 		comment_texto.setText("Cargando Comentarios...");
 		action = 0;
 		p = this;
+		
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
@@ -129,9 +136,14 @@ public class PostController extends AController implements Initializable, Runnab
 	        while (true) {
 	        	try {
 	        		if (post != null) {
+	        			Thread.sleep(1000);
+	        			try {
+	        				post_imagen.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
+	        			}
+	        			catch(Exception e) {}
 	        			post_texto.setText("Fecha: "+post.getFecha()+"\n\n"+post.getTxt());
 	        			Collection<Comment> comment2 = null;
-        				comment2 = new CommentDAO().getById(new Comment("",post.getId()+"",new User(), new Post()));
+        				comment2 = new CommentDAO().getById(new Comment("","",new User(), new Post(post.getId(),"","","")));
         				if (comment2.size() >= 1) {
         					String comments = "";
 	        				for (Comment c: comment2) {
@@ -159,10 +171,10 @@ public class PostController extends AController implements Initializable, Runnab
         				}
         				while (true) {
         					try {
-        						likes.setText(new UserDAO().getByLikePost(new User(0,post.getId()+"","","")).size()+" Likes");
+        						likes.setText(new UserDAO().getByLikePost(new User(post.getId(),"","","")).size()+" Likes");
         						Thread.sleep(1000);
-        					} catch (InterruptedException e) {
-        						e.printStackTrace();
+        					} catch (Exception e) {
+        						return;
         					}
         				}
 	        		}
@@ -176,10 +188,16 @@ public class PostController extends AController implements Initializable, Runnab
 	        					l = post2.getId();
 	        				}
 	        			}
-	        			if (post2 != null) {
-	        				post_texto.setText("Fecha: "+post2.getFecha()+"\n\n"+post2.getTxt());
+	        			post = post2;
+	        			if (post != null) {
+	        				Thread.sleep(1000);
+	        				try {
+		        				post_imagen.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
+		        			}
+		        			catch(Exception e) {}
+	        				post_texto.setText("Fecha: "+post.getFecha()+"\n\n"+post.getTxt());
 	        				Collection<Comment> comment2 = null;
-	        				comment2 = new CommentDAO().getById(new Comment("",post2.getId()+"",new User(), new Post()));
+	        				comment2 = new CommentDAO().getById(new Comment("","",new User(), new Post(post.getId(),"","","")));
 	        				if (comment2.size() >= 1) {
 	        					String comments = "";
 		        				for (Comment c: comment2) {
@@ -207,10 +225,10 @@ public class PostController extends AController implements Initializable, Runnab
 	        				}
 	        				while (true) {
 	        					try {
-	        						likes.setText(new UserDAO().getByLikePost(new User(0,post.getId()+"","","")).size()+" Likes");
+	        						likes.setText(new UserDAO().getByLikePost(new User(post.getId(),"","","")).size()+" Likes");
 	        						Thread.sleep(1000);
-	        					} catch (InterruptedException e) {
-	        						e.printStackTrace();
+	        					} catch (Exception e) {
+	        						return;
 	        					}
 	        				}
 	        			}
