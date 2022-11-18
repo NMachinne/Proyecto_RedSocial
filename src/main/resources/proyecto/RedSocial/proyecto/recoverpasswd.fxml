@@ -11,12 +11,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.LoginController">
    <children>
-      <Text fx:id="pswrd" layoutX="232.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+      <Text fx:id="pswrd" layoutX="232.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW PASSWORD">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Button fx:id="singin" layoutX="154.0" layoutY="489.0" mnemonicParsing="false" onAction="#singinAplication" prefHeight="29.0" prefWidth="131.0" text="sign in">
+      <Button fx:id="changepassword" layoutX="229.0" layoutY="463.0" mnemonicParsing="false" onAction="#recoverpasswd2" prefHeight="29.0" prefWidth="131.0" text="change">
          <font>
             <Font size="14.0" />
          </font>
@@ -31,12 +31,6 @@
          </font>
       </Text>
       <TextField fx:id="getusername" layoutX="160.0" layoutY="297.0" prefHeight="33.0" prefWidth="282.0" />
-      <Button fx:id="createAcoount" layoutX="322.0" layoutY="489.0" mnemonicParsing="false" onAction="#createaccount" text="Crear cuenta">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Text fx:id="recpasswrd" layoutX="240.0" layoutY="441.0" onMouseClicked="#recoverpasswd" strokeType="OUTSIDE" strokeWidth="0.0" text="Recover password?" wrappingWidth="117.740234375" />
       <PasswordField fx:id="getpassword" layoutX="160.0" layoutY="381.0" prefHeight="33.0" prefWidth="282.0" />
    </children>
 </AnchorPane>
