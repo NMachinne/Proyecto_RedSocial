@@ -2,6 +2,8 @@ package proyecto.RedSocial.proyecto.model.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
+
+import proyecto.RedSocial.proyecto.model.Entity.Post;
 import proyecto.RedSocial.proyecto.model.Entity.User;
 
 public class UserDAO extends ADAO<User> {
@@ -126,6 +128,7 @@ public class UserDAO extends ADAO<User> {
 		}
 		return null;
 	}
+	 
 
 	public void update(User user) {
 		try {

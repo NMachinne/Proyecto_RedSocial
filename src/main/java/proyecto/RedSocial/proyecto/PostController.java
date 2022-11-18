@@ -50,9 +50,14 @@ public class PostController extends AController implements Initializable, Runnab
     
     private static PostController p;
 
+    /**
+     * Muestra el EscribePost.fxml
+     * @param event Objeto ActionEvent
+     * @throws IOException
+     */
     @FXML
     void banadir(ActionEvent event) throws IOException {
-    	//App.setRoot("");
+    	App.setRoot("EscribePost");
     }
     
     /**
@@ -110,13 +115,15 @@ public class PostController extends AController implements Initializable, Runnab
     	App.setRoot("user");
     }
 
+    /**
+     * Inicializa el PostController
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		post_texto.setText("Cargando Post...");
 		comment_texto.setText("Cargando Comentarios...");
 		action = 0;
 		p = this;
-		
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {

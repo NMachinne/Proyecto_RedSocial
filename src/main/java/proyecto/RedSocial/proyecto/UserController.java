@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -33,7 +35,7 @@ import proyecto.RedSocial.proyecto.model.Entity.User;
 import proyecto.RedSocial.proyecto.model.DAO.PostDAO;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class UserController extends AController implements Initializable,Runnable {
+public class UserController extends AController implements Initializable, Runnable {
 
 	// variables para el perfil del usuario con el archivo user.fxml
 	@FXML
@@ -74,12 +76,12 @@ public class UserController extends AController implements Initializable,Runnabl
 	private GridPane postGrid;
 	@FXML
 	private ScrollPane userPosts;
-	
+
 	private static int action;
-    
-    private static UserController u;
+
+	private static UserController u;
 	PostDAO pd = new PostDAO();
-	UserDAO ud = new UserDAO(); 
+	UserDAO ud = new UserDAO();
 
 	/**
 	 * permite seguir al usuario que se muestra
@@ -88,34 +90,34 @@ public class UserController extends AController implements Initializable,Runnabl
 	 */
 	@FXML
 	void follow(ActionEvent event) {
-		
-		//try {
-		//	if (new UserDAO().getByFollowById(new User(login_user.getId(),user.getId()+"","","")).toArray()[0] != null) {
-		//		ud.deleteFollow(new User(login_user.getId(),user.getId()+"","",""));
-		//		followuser.setText("SEGUIR");
-				//System.out.println(followuser.getText().equals("SIGUIENDO"));
-		//	} 
 
-		//} catch (Exception e) {
-		//	ud.insertFollow(new User(login_user.getId(),user.getId()+"","",""));
-		//	followuser.setText("SIGUIENDO");
-		//}
+		// try {
+		// if (new UserDAO().getByFollowById(new
+		// User(login_user.getId(),user.getId()+"","","")).toArray()[0] != null) {
+		// ud.deleteFollow(new User(login_user.getId(),user.getId()+"","",""));
+		// followuser.setText("SEGUIR");
+		// System.out.println(followuser.getText().equals("SIGUIENDO"));
+		// }
+
+		// } catch (Exception e) {
+		// ud.insertFollow(new User(login_user.getId(),user.getId()+"","",""));
+		// followuser.setText("SIGUIENDO");
+		// }
 		boolean follow = false;
 		try {
-			if (new UserDAO().getByFollowById(new User(login_user.getId(),user.getId()+"","","")).toArray()[0] != null);
+			if (new UserDAO().getByFollowById(new User(login_user.getId(), user.getId() + "", "", ""))
+					.toArray()[0] != null)
+				;
 			follow = true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			follow = false;
 		}
 		if (follow) {
-			ud.deleteFollow(new User(login_user.getId(),user.getId()+"","",""));
+			ud.deleteFollow(new User(login_user.getId(), user.getId() + "", "", ""));
+		} else {
+			ud.insertFollow(new User(login_user.getId(), user.getId() + "", "", ""));
 		}
-		else {
-			ud.insertFollow(new User(login_user.getId(),user.getId()+"","",""));
-		}	
-		
-		
+
 	}
 
 	/**
@@ -189,7 +191,6 @@ public class UserController extends AController implements Initializable,Runnabl
 	@FXML
 	void perfilEdit(ActionEvent event) {
 
-	
 		if (!delPost.isVisible()) {
 			delPost.setVisible(true);
 			imgUser.setVisible(true);
@@ -248,95 +249,94 @@ public class UserController extends AController implements Initializable,Runnabl
 		if (login_user.getId() == user.getId()) {
 			editPerfil.toFront();
 			editPerfil.setVisible(true);
-			
+
 		} else {
 			followuser.toFront();
 			followuser.setVisible(true);
-			
+
 		}
-		
+
 		action = 0;
 		u = this;
 		getNameUser.setText(user.getNombre());
 		nPost.setText(pd.getAllByIdUser(new Post(user.getId(), "", "", "")).size() + "");
-		nFollowed.setText(ud.getByFollowed(user).size()+"");
-		nFollower.setText(ud.getByFollow(user).size()+"");
-		pd.getByIdUser(new Post(0,user.getId()+"","",""));
+		nFollowed.setText(ud.getByFollowed(user).size() + "");
+		nFollower.setText(ud.getByFollow(user).size() + "");
+		pd.getByIdUser(new Post(0, user.getId() + "", "", ""));
+		loadUserPost();
 		Platform.runLater(new Runnable() {
-		    @Override
-		    public void run() {
-		    	Thread t = new Thread(u);
-		    	t.setDaemon(true);
-		    	t.start();
-		    }
+			@Override
+			public void run() {
+				Thread t = new Thread(u);
+				t.setDaemon(true);
+				t.start();
+			}
 		});
-		
+
 	}
-	/* *
-	 * 
-	 
+
 	public void loadUserPost() {
-		int columns =0;
+		Collection<Post> posts = new PostDAO().getAllByIdUser(new Post(0, user.getId() + "", "", ""));
+		int columns = 0;
 		int rows = 1;
-		  try {
-			  for (int i = 0; i < posts.size(); i++) {
-				  	FXMLLoader fxmloader = new FXMLLoader();
-				  	fxmloader.setLocation(getClass().getResource("post.fxml"));
-		 
-		  VBox postbox = fxmloader.load();
-		  
-		  PostController pc = fxmloader.getController();
-		  pc.(posts.get(i));		  
-		  if (columns ==3) { 
-			  columns =0;
-			  ++rows; 
-			  } 
-		  }	  
-		  postGrid.add(postbox, columns++, rows);
-		  GridPane.setMargin(postbox, new Insets(10));
-		  }catch (IOException e){
-			  e.printStackTrace(); 
-		  } 
+		try {
+			for (int i = 0; i < posts.size(); i++) {
+				FXMLLoader fxmloader = new FXMLLoader();
+				fxmloader.setLocation(getClass().getResource("userPost.fxml"));
+				VBox postbox = fxmloader.load();
+				UserPostController upc = fxmloader.getController();
+				upc.setData((User) posts.toArray()[i]);
+				if (columns == 3) {
+					columns = 0;
+					++rows;
+				}
+				postGrid.add(postbox, columns++, rows);
+				GridPane.setMargin(postbox, new Insets(10));
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	 */
 
 	@Override
 	public void run() {
-		User uvar= user;
-		if (action ==0) {
-			
+		User uvar = user;
+		if (action == 0) {
+
 			try {
 				while (true) {
-					if ( user != null) {
-	        			try {
+					if (user != null) {
+						try {
 							Thread.sleep(1000);
 							try {
 								nPost.setText(pd.getAllByIdUser(new Post(uvar.getId(), "", "", "")).size() + "");
-								
-								nFollowed.setText(ud.getByFollowed(uvar).size()+"");
-								nFollower.setText(ud.getByFollow(uvar).size()+"");
+
+								nFollowed.setText(ud.getByFollowed(uvar).size() + "");
+								nFollower.setText(ud.getByFollow(uvar).size() + "");
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 							boolean follow = false;
-	        				try {
-	        					if (new UserDAO().getByFollowById(new User(login_user.getId(),user.getId()+"","","")).toArray()[0] != null);
-	        					follow = true;
-	        				}
-	        				catch (Exception e) {
-	        					follow = false;
-	        				}
-	        				if (follow) {
-	        					followuser.setText("SIGUIENDO");
-	        				}
-	        				else {
-	        					followuser.setText("SEGUIR");
-	        				}
-	        				
+							try {
+								if (new UserDAO()
+										.getByFollowById(new User(login_user.getId(), user.getId() + "", "", ""))
+										.toArray()[0] != null)
+									;
+								follow = true;
+							} catch (Exception e) {
+								follow = false;
+							}
+							if (follow) {
+								followuser.setText("SIGUIENDO");
+							} else {
+								followuser.setText("SEGUIR");
+							}
+
 							Thread.sleep(1000);
-							
+
 						} catch (InterruptedException e) {
-							
+
 							e.printStackTrace();
 						}
 					}
@@ -344,11 +344,10 @@ public class UserController extends AController implements Initializable,Runnabl
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-				
-			
-		} else if (action ==1) {
-			
+
+		} else if (action == 1) {
+
 		}
-				
+
 	}
 }
