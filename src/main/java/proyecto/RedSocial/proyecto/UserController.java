@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -90,19 +91,6 @@ public class UserController extends AController implements Initializable, Runnab
 	 */
 	@FXML
 	void follow(ActionEvent event) {
-
-		// try {
-		// if (new UserDAO().getByFollowById(new
-		// User(login_user.getId(),user.getId()+"","","")).toArray()[0] != null) {
-		// ud.deleteFollow(new User(login_user.getId(),user.getId()+"","",""));
-		// followuser.setText("SEGUIR");
-		// System.out.println(followuser.getText().equals("SIGUIENDO"));
-		// }
-
-		// } catch (Exception e) {
-		// ud.insertFollow(new User(login_user.getId(),user.getId()+"","",""));
-		// followuser.setText("SIGUIENDO");
-		// }
 		boolean follow = false;
 		try {
 			if (new UserDAO().getByFollowById(new User(login_user.getId(), user.getId() + "", "", ""))
@@ -263,6 +251,7 @@ public class UserController extends AController implements Initializable, Runnab
 		nFollowed.setText(ud.getByFollowed(user).size() + "");
 		nFollower.setText(ud.getByFollow(user).size() + "");
 		pd.getByIdUser(new Post(0, user.getId() + "", "", ""));
+	
 		loadUserPost();
 		Platform.runLater(new Runnable() {
 			@Override
@@ -276,22 +265,27 @@ public class UserController extends AController implements Initializable, Runnab
 	}
 
 	public void loadUserPost() {
-		Collection<Post> posts = new PostDAO().getAllByIdUser(new Post(0, user.getId() + "", "", ""));
+		Collection<Post> posts = new PostDAO().getAllByIdUser(new Post(user.getId(), "", "", ""));
 		int columns = 0;
 		int rows = 1;
 		try {
 			for (int i = 0; i < posts.size(); i++) {
 				FXMLLoader fxmloader = new FXMLLoader();
 				fxmloader.setLocation(getClass().getResource("userPost.fxml"));
-				VBox postbox = fxmloader.load();
+				
+				AnchorPane apane = fxmloader.load();
+				
 				UserPostController upc = fxmloader.getController();
-				upc.setData((User) posts.toArray()[i]);
-				if (columns == 3) {
+				upc.setData((Post) posts.toArray()[i]);
+				if (columns == 2) {
 					columns = 0;
 					++rows;
 				}
-				postGrid.add(postbox, columns++, rows);
-				GridPane.setMargin(postbox, new Insets(10));
+				postGrid.add(apane, columns++, rows);
+				
+				GridPane.setMargin(apane, new Insets(3));
+
+
 			}
 
 		} catch (IOException e) {

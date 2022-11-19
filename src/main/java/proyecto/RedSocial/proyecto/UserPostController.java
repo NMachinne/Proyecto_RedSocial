@@ -19,7 +19,7 @@ import proyecto.RedSocial.proyecto.model.Entity.User;
 
 public class UserPostController extends AController implements Initializable {
 
-	    @FXML
+	  @FXML
 	    private Text comments;
 
 	    @FXML
@@ -36,19 +36,20 @@ public class UserPostController extends AController implements Initializable {
 
 	    @FXML
 	    private Text nameFolllowUser;
+
 	    @FXML
 	    private TextArea textComment;
+
 	    
 	    UserDAO ps= new UserDAO();
 	    CommentDAO cd = new CommentDAO();
 
-	public void setData(User user) {
+	public void setData(Post post) {
 		//new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()));
-		Image img = new Image(getClass().getResourceAsStream(UserPostController.user.getAvatar()));	
-		imgfollowuser.setImage(img);
+		//Image img = new Image(getClass().getResourceAsStream(UserPostController.user.getAvatar()));	
+		//imgfollowuser.setImage(img);
 		
 		textComment.setText(UserPostController.post.getFecha()+"\n\n" +UserPostController.post.getTxt());
-		nameFolllowUser.setText(UserPostController.user.getNombre());
 		likes.setText(ps.getByLikePost(new User(user.getId(),"","","")).size()+"");
 		comments.setText(cd.getById(new Comment("","",new User(), new Post(post.getId(),"","",""))).size()+ "");
 		

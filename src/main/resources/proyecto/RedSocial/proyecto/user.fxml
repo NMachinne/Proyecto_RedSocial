@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserController">
    <children>
       <AnchorPane prefHeight="491.0" prefWidth="399.0">
          <children>
@@ -59,7 +59,7 @@
                <children>
                   <ScrollPane fx:id="userPosts" hbarPolicy="NEVER" layoutX="6.0" prefHeight="284.0" prefWidth="387.0" styleClass="tr" vbarPolicy="ALWAYS">
                      <content>
-                        <GridPane fx:id="postGrid">
+                        <GridPane fx:id="postGrid" alignment="CENTER" prefHeight="15.0" prefWidth="3.0">
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>

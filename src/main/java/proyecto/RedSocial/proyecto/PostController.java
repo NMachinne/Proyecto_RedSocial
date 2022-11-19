@@ -124,6 +124,7 @@ public class PostController extends AController implements Initializable, Runnab
 		comment_texto.setText("Cargando Comentarios...");
 		action = 0;
 		p = this;
+		
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
