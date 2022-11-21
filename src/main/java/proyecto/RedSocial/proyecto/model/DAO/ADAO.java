@@ -58,6 +58,9 @@ public abstract class ADAO<T> {
 				o.add((String)p.getFecha());
 				o.add((String)p.getTxt());
 				o.add((String)p.getMultimedia());
+				try {
+					o.add((Integer)p.getLikes().getId());
+				} catch (NullPointerException e) {} 
 				break;
 			case 4:
 				Comment c = (Comment)obj;
