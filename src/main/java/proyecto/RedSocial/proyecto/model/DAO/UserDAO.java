@@ -16,9 +16,9 @@ public class UserDAO extends ADAO<User> {
 	private final static String DELETEFOLLOW = "DELETE FROM follow WHERE id_usuario=? AND id=?";
 	private final static String DELETELIKE = "DELETE FROM likes WHERE id_usuario=? and id_publicacion=?";
 	private final static String SELECTBYID = "SELECT id,nombre,password,avatar FROM user WHERE id=?";
-	private final static String SELECTBYNAME = "SELECT id,nombre,password,avatar FROM user WHERE nombre=?";
-	private final static String SELECTBYFOLLOW = "SELECT id,id_usuario,null,null FROM follow WHERE id=?";
-	private final static String SELECTBYFOLLOWER = "SELECT id,id_usuario,null,null FROM follow WHERE id_usuario=?";
+	private final static String SELECTBYNAME = "SELECT id,nombre,password,avatar FROM user WHERE nombre=?";	
+	private final static String SELECTBYFOLLOWER = "SELECT id,id_usuario,null,null FROM follow WHERE id=?";
+	private final static String SELECTBYFOLLOWED = "SELECT id,id_usuario,null,null FROM follow WHERE id_usuario=?";
 	private final static String SELECTBYLIKE = "SELECT id_usuario,id_publicacion,fecha,null FROM likes WHERE id_usuario=? and id_publicacion=?";
 	private final static String SELECTBYLIKEPOST = "SELECT id_usuario,id_publicacion,fecha,null FROM likes WHERE id_publicacion=?";
 	private final static String SELECTBYFOLLOWBYID = "SELECT id,id_usuario,null,null FROM follow WHERE id=? AND id_usuario=?";
@@ -58,6 +58,17 @@ public class UserDAO extends ADAO<User> {
 		}
 		return null;
 	}
+	
+	public Collection<User> getByIdUser(User user) {
+		try {
+			Collection<User> u = super.read(user, SELECTBYID, new Integer[] {1});
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 	public Collection<User> getByName(User user) {
 		try {
@@ -71,7 +82,7 @@ public class UserDAO extends ADAO<User> {
 
 	public Collection<User> getByFollow(User user) {
 		try {
-			Collection<User> u = super.read(user, SELECTBYFOLLOW, null);
+			Collection<User> u = super.read(user, SELECTBYFOLLOWER, null);
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +92,7 @@ public class UserDAO extends ADAO<User> {
 
 	public Collection<User> getByFollowed(User user) {
 		try {
-			Collection<User> u = super.read(user, SELECTBYFOLLOWER, null);
+			Collection<User> u = super.read(user, SELECTBYFOLLOWED, null);
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();

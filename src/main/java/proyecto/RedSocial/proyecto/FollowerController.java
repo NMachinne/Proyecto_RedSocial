@@ -3,6 +3,7 @@ package proyecto.RedSocial.proyecto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import proyecto.RedSocial.proyecto.model.Entity.Post;
 import proyecto.RedSocial.proyecto.model.Entity.User;
+import proyecto.RedSocial.proyecto.model.DAO.PostDAO;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
 public class FollowerController extends AController implements Initializable {
@@ -54,51 +57,53 @@ public class FollowerController extends AController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		getnameFollow.setText(nameFollow);
-		List<User> useres = new ArrayList<>(useres());
+		if (nameFollow.equals("Follower")) {
+			loadFollower();
+		} else {
+			loadFollowed();
+		}
+
+	}
+	
+	public void loadFollowed() {
+		Collection<User> useres = new UserDAO().getByFollow(new User(user.getId(), "", "", ""));
+		User uaux= new User();
+		System.out.println(useres);
 		for (int i = 0; i < useres.size(); i++) {
 			FXMLLoader fxmloader = new FXMLLoader();
-			fxmloader.setLocation(getClass().getResource("itemUser.fxml"));
-
+			fxmloader.setLocation(getClass().getResource("itemUser.fxml"));	
 			try {
 				HBox apane = fxmloader.load();
 				ItemUserController uc = fxmloader.getController();
-				uc.setData(useres.get(i));
+				uaux =((User)useres.toArray()[i]);	
+				uc.setData((User)new UserDAO().getByIdUser(new User(0,uaux.getNombre(),"","")).toArray()[0]);
 				Vboxlayout.getChildren().add(apane);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 	
-	private List<User> useres() {
-		List<User> ls = new ArrayList<>();
-		User user = new User();
-
-		user.setNombre("zoiberg");
-		user.setAvatar("/img/zoiberg.png");
-		ls.add(user);
-
-		user = new User();
-		user.setNombre("leela");
-		user.setAvatar("/img/leela.png");
-		ls.add(user);
-
-		user = new User();
-		user.setNombre("fry");
-		user.setAvatar("/img/fry.png");
-		ls.add(user);
-
-		user = new User();
-		user.setNombre("bender");
-		user.setAvatar("/img/bender.png");
-		ls.add(user);
-
-		return ls;
+	public void loadFollower() {
+		Collection<User> useres = new UserDAO().getByFollowed(new User(user.getId(), "", "", ""));
+		User uaux= new User();
+		System.out.println(useres);
+		for (int i = 0; i < useres.size(); i++) {
+			FXMLLoader fxmloader = new FXMLLoader();
+			fxmloader.setLocation(getClass().getResource("itemUser.fxml"));	
+			try {
+				HBox apane = fxmloader.load();
+				ItemUserController uc = fxmloader.getController();
+				uaux =((User)useres.toArray()[i]);
+				uc.setData((User)new UserDAO().getById(new User(uaux.getId(),"","","")).toArray()[0]);
+				Vboxlayout.getChildren().add(apane);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

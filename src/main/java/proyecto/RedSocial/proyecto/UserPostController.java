@@ -41,18 +41,19 @@ public class UserPostController extends AController implements Initializable {
 	    private TextArea textComment;
 
 	    
-	    UserDAO ps= new UserDAO();
+	    UserDAO us= new UserDAO();
 	    CommentDAO cd = new CommentDAO();
+	    PostDAO pd = new PostDAO();
 
 	public void setData(Post post) {
-		//new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()));
-		//Image img = new Image(getClass().getResourceAsStream(UserPostController.user.getAvatar()));	
-		//imgfollowuser.setImage(img);
-		
-		textComment.setText(UserPostController.post.getFecha()+"\n\n" +UserPostController.post.getTxt());
-		likes.setText(ps.getByLikePost(new User(user.getId(),"","","")).size()+"");
+		try {
+			imgfollowuser.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
+		} catch (Exception e) { 
+			// TODO: handle exception
+		}	
+		textComment.setText(post.getFecha()+"\n\n" +post.getTxt());
+		likes.setText(us.getByLikePost(new User(user.getId(),"","","")).size()+"");
 		comments.setText(cd.getById(new Comment("","",new User(), new Post(post.getId(),"","",""))).size()+ "");
-		
 	}
 	
 	@Override

@@ -237,13 +237,10 @@ public class UserController extends AController implements Initializable, Runnab
 		if (login_user.getId() == user.getId()) {
 			editPerfil.toFront();
 			editPerfil.setVisible(true);
-
 		} else {
 			followuser.toFront();
 			followuser.setVisible(true);
-
 		}
-
 		action = 0;
 		u = this;
 		getNameUser.setText(user.getNombre());
@@ -251,7 +248,6 @@ public class UserController extends AController implements Initializable, Runnab
 		nFollowed.setText(ud.getByFollowed(user).size() + "");
 		nFollower.setText(ud.getByFollow(user).size() + "");
 		pd.getByIdUser(new Post(0, user.getId() + "", "", ""));
-	
 		loadUserPost();
 		Platform.runLater(new Runnable() {
 			@Override
@@ -274,7 +270,6 @@ public class UserController extends AController implements Initializable, Runnab
 				fxmloader.setLocation(getClass().getResource("userPost.fxml"));
 				
 				AnchorPane apane = fxmloader.load();
-				
 				UserPostController upc = fxmloader.getController();
 				upc.setData((Post) posts.toArray()[i]);
 				if (columns == 2) {
@@ -295,7 +290,7 @@ public class UserController extends AController implements Initializable, Runnab
 
 	@Override
 	public void run() {
-		User uvar = user;
+		 User uvar = user;
 		if (action == 0) {
 
 			try {
@@ -306,8 +301,8 @@ public class UserController extends AController implements Initializable, Runnab
 							try {
 								nPost.setText(pd.getAllByIdUser(new Post(uvar.getId(), "", "", "")).size() + "");
 
-								nFollowed.setText(ud.getByFollowed(uvar).size() + "");
-								nFollower.setText(ud.getByFollow(uvar).size() + "");
+								nFollowed.setText(ud.getByFollow(uvar).size() + "");
+								nFollower.setText(ud.getByFollowed(uvar).size() + "");
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -322,9 +317,9 @@ public class UserController extends AController implements Initializable, Runnab
 								follow = false;
 							}
 							if (follow) {
-								followuser.setText("SIGUIENDO");
+								//followuser.setText("SIGUIENDO");
 							} else {
-								followuser.setText("SEGUIR");
+								//followuser.setText("SEGUIR");
 							}
 
 							Thread.sleep(1000);
@@ -333,7 +328,9 @@ public class UserController extends AController implements Initializable, Runnab
 
 							e.printStackTrace();
 						}
+						
 					}
+					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

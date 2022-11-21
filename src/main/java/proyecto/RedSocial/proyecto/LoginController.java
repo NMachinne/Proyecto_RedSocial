@@ -122,16 +122,14 @@ public class LoginController extends AController {
 		for (User user : us.getAll()) {
 			String pass2 = decrypt(user.getPassword());
 			if (user.getNombre().equals(userAdd.getNombre()) && pass2.equals(userAdd.getPassword())) {
+				userAdd=(User) new UserDAO().getByName(userAdd).toArray()[0];
 				login_user = userAdd;
 				try {
 					App.setRoot("post");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					alertAcount2();
 				}
-			} else {
-				alertAcount2();
-
 			}
 		}
 	}
@@ -189,5 +187,4 @@ public class LoginController extends AController {
 		}
 		return null;
 	}
-
 }

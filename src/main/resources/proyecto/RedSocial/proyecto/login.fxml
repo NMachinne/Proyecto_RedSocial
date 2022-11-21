@@ -9,34 +9,34 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #844cf4;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.LoginController">
    <children>
-      <Text fx:id="pswrd" layoutX="232.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+      <Text fx:id="pswrd" layoutX="140.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Button fx:id="sigin" layoutX="154.0" layoutY="489.0" mnemonicParsing="false" onAction="#signinAplication" prefHeight="29.0" prefWidth="131.0" text="sign in">
+      <Button fx:id="singin" layoutX="59.0" layoutY="415.0" mnemonicParsing="false" onAction="#singinAplication" prefHeight="29.0" prefWidth="131.0" text="sign in">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ImageView fx:id="photo" fitHeight="180.0" fitWidth="308.0" layoutX="146.0" layoutY="47.0">
+      <ImageView fx:id="photo" fitHeight="180.0" fitWidth="308.0" layoutX="46.0" layoutY="14.0">
          <image>
             <Image url="@../../../img/Logo.jpeg" />
          </image></ImageView>
-      <Text fx:id="username" layoutX="242.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+      <Text fx:id="username" layoutX="141.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="getusername" layoutX="160.0" layoutY="297.0" prefHeight="33.0" prefWidth="282.0" />
-      <Button fx:id="createAcoount" layoutX="322.0" layoutY="489.0" mnemonicParsing="false" onAction="#createaccount" text="Crear cuenta">
+      <TextField fx:id="getusername" layoutX="59.0" layoutY="241.0" prefHeight="33.0" prefWidth="282.0" />
+      <Button fx:id="createAcoount" layoutX="244.0" layoutY="415.0" mnemonicParsing="false" onAction="#createaccount" text="Crear cuenta">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <PasswordField fx:id="getpassword" layoutX="158.0" layoutY="381.0" prefHeight="33.0" prefWidth="282.0" />
-      <Text fx:id="recpasswrd" layoutX="240.0" layoutY="441.0" onMouseClicked="#recoverpasswd" strokeType="OUTSIDE" strokeWidth="0.0" text="Recover password?" wrappingWidth="117.740234375" />
+      <PasswordField fx:id="getpassword" layoutX="59.0" layoutY="317.0" prefHeight="33.0" prefWidth="282.0" />
+      <Text fx:id="recpasswrd" layoutX="141.0" layoutY="363.0" onMouseClicked="#recoverpasswd" strokeType="OUTSIDE" strokeWidth="0.0" text="Recover password?" wrappingWidth="117.740234375" />
    </children>
 </AnchorPane>

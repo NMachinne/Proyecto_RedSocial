@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import proyecto.RedSocial.proyecto.model.Entity.User;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class ItemUserController implements Initializable {
+public class ItemUserController extends AController implements Initializable {
 
 	// variables de seguidores con el archivo itemUser.fxml
     @FXML
@@ -39,17 +39,26 @@ public class ItemUserController implements Initializable {
 
     @FXML
     private Text nameFolllowUser;
+    
+    UserDAO ud = new UserDAO();
 
     @FXML
     void unfollowUser(ActionEvent event) {
-
+    	
+    	ud.deleteFollow(new User(login_user.getId(), user.getId() + "", "", ""));
+    	System.out.println(login_user.getId());
+    	System.out.println(user.getId());
     }
 
 	public void setData(User user) {
-		Image img = new Image(getClass().getResourceAsStream(user.getAvatar()));
-		imgfollowuser.setImage(img);
-		nameFolllowUser.setText(user.getNombre());
-	}
+			try {
+				Image img = new Image(getClass().getResourceAsStream(user.getAvatar()));
+				imgfollowuser.setImage(img);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			nameFolllowUser.setText(user.getNombre());	
+		}	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
