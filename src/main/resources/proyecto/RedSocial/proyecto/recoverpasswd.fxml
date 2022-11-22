@@ -9,28 +9,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.LoginController">
    <children>
-      <Text fx:id="pswrd" layoutX="232.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW PASSWORD">
+      <Text fx:id="pswrd" layoutX="132.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW PASSWORD">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Button fx:id="changepassword" layoutX="229.0" layoutY="463.0" mnemonicParsing="false" onAction="#recoverpasswd2" prefHeight="29.0" prefWidth="131.0" text="change">
+      <Button fx:id="changepassword" layoutX="129.0" layoutY="456.0" mnemonicParsing="false" onAction="#recoverpasswd2" prefHeight="29.0" prefWidth="131.0" text="change">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ImageView fx:id="photo" fitHeight="180.0" fitWidth="308.0" layoutX="146.0" layoutY="47.0">
+      <ImageView fx:id="photo" fitHeight="180.0" fitWidth="308.0" layoutX="46.0" layoutY="40.0">
          <image>
             <Image url="@../../../img/Logo.jpeg" />
          </image></ImageView>
-      <Text fx:id="username" layoutX="242.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+      <Text fx:id="username" layoutX="142.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="getusername" layoutX="160.0" layoutY="297.0" prefHeight="33.0" prefWidth="282.0" />
-      <PasswordField fx:id="getpassword" layoutX="160.0" layoutY="381.0" prefHeight="33.0" prefWidth="282.0" />
+      <TextField fx:id="getusername" layoutX="60.0" layoutY="290.0" prefHeight="33.0" prefWidth="282.0" />
+      <PasswordField fx:id="getpassword" layoutX="60.0" layoutY="374.0" prefHeight="33.0" prefWidth="282.0" />
    </children>
 </AnchorPane>

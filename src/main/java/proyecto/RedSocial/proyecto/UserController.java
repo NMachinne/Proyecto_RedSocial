@@ -194,6 +194,7 @@ public class UserController extends AController implements Initializable, Runnab
 	}
 
 	/**
+	 * Seleciona un objeto dentro
 	 * 
 	 * @param event
 	 */
@@ -232,6 +233,36 @@ public class UserController extends AController implements Initializable, Runnab
 
 	}
 
+	/**
+	 * carga una coleccion de post de un usuario con su contenido
+	 */
+	public void loadUserPost() {
+		Collection<Post> posts = new PostDAO().getAllByIdUser(new Post(user.getId(), "", "", ""));
+		int columns = 0;
+		int rows = 1;
+		try {
+			for (int i = 0; i < posts.size(); i++) {
+				FXMLLoader fxmloader = new FXMLLoader();
+				fxmloader.setLocation(getClass().getResource("userPost.fxml"));
+				AnchorPane apane = fxmloader.load();
+				UserPostController upc = fxmloader.getController();
+				upc.setData((Post) posts.toArray()[i]);
+				if (columns == 2) {
+					columns = 0;
+					++rows;
+				}
+				postGrid.add(apane, columns++, rows);
+				System.out.println(apane);
+
+				GridPane.setMargin(apane, new Insets(3));
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if (login_user.getId() == user.getId()) {
@@ -255,44 +286,17 @@ public class UserController extends AController implements Initializable, Runnab
 				Thread t = new Thread(u);
 				t.setDaemon(true);
 				t.start();
+				action =1;
 			}
+			
 		});
 
 	}
 
-	public void loadUserPost() {
-		Collection<Post> posts = new PostDAO().getAllByIdUser(new Post(user.getId(), "", "", ""));
-		int columns = 0;
-		int rows = 1;
-		try {
-			for (int i = 0; i < posts.size(); i++) {
-				FXMLLoader fxmloader = new FXMLLoader();
-				fxmloader.setLocation(getClass().getResource("userPost.fxml"));
-				
-				AnchorPane apane = fxmloader.load();
-				UserPostController upc = fxmloader.getController();
-				upc.setData((Post) posts.toArray()[i]);
-				if (columns == 2) {
-					columns = 0;
-					++rows;
-				}
-				postGrid.add(apane, columns++, rows);
-				
-				GridPane.setMargin(apane, new Insets(3));
-
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void run() {
-		 User uvar = user;
+		User uvar = user;
 		if (action == 0) {
-
 			try {
 				while (true) {
 					if (user != null) {
@@ -317,28 +321,51 @@ public class UserController extends AController implements Initializable, Runnab
 								follow = false;
 							}
 							if (follow) {
-								//followuser.setText("SIGUIENDO");
+								// followuser.setText("SIGUIENDO");
 							} else {
-								//followuser.setText("SEGUIR");
+								// followuser.setText("SEGUIR");
 							}
-
+							try {
+				        		if (post!= null) {
+				        			try {
+										App.setRoot("post");
+										return;
+									} catch (IOException e) {
+										e.printStackTrace();
+									}
+				        		}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 							Thread.sleep(1000);
-
+							
 						} catch (InterruptedException e) {
-
 							e.printStackTrace();
 						}
-						
 					}
 					
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-		} else if (action == 1) {
-
 		}
-
+		else if (action == 1) {
+			while (true) {
+	        	try {
+	        		if (post!= null) {
+	        			try {
+							App.setRoot("post");
+							return;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+	        		}
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	        }
+		}
 	}
 }

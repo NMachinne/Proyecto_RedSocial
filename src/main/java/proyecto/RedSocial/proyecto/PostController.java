@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -58,6 +59,26 @@ public class PostController extends AController implements Initializable, Runnab
     @FXML
     void banadir(ActionEvent event) throws IOException {
     	App.setRoot("EscribePost");
+    }
+    
+    /**
+     * 
+     * @param event
+     */
+    @FXML
+    void userComment(ActionEvent event) throws Exception{
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("commentPost.fxml"));
+        Parent root1 = (Parent)fxmlLoader.load();
+        Stage stage1 = new Stage();
+        stage1.setResizable(false);
+        stage1.initModality(Modality.APPLICATION_MODAL);
+        stage1.setTitle("Buscador");
+        stage1.setScene(new Scene(root1));
+        stage1.show();
+        action = 1;
+        Thread t = new Thread(p);
+    	t.setDaemon(true);
+    	t.start();
     }
     
     /**
@@ -112,6 +133,7 @@ public class PostController extends AController implements Initializable, Runnab
     @FXML
     void busuario(ActionEvent event) throws IOException {
     	AController.user = AController.login_user;
+    	AController.post = null;
     	App.setRoot("user");
     }
 
@@ -149,7 +171,7 @@ public class PostController extends AController implements Initializable, Runnab
 	        				post_imagen.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
 	        			}
 	        			catch(Exception e) {}
-	        			post_texto.setText("Fecha: "+post.getFecha()+"\n\n"+post.getTxt());
+	        			post_texto.setText("Fecha: "+post.getFecha()+"\nUsuario: "+user.getNombre()+"\n\n"+post.getTxt());
 	        			Collection<Comment> comment2 = null;
         				comment2 = new CommentDAO().getById(new Comment("","",new User(), new Post(post.getId(),"","","")));
         				if (comment2.size() >= 1) {
@@ -256,6 +278,7 @@ public class PostController extends AController implements Initializable, Runnab
 	        	try {
 	        		if (user != null) {
 	        			try {
+	        				AController.post = null;
 							App.setRoot("user");
 							return;
 						} catch (IOException e) {

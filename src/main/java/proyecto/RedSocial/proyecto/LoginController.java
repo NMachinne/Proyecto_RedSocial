@@ -82,25 +82,30 @@ public class LoginController extends AController {
 
 	@FXML
 	void recoverpasswd2(ActionEvent event) {
+
 		User userAdd = new User();
+		boolean flag = false;
 		String name = getusername.getText();
 		String password = getpassword.getText();
 		userAdd.setNombre(name);
 		userAdd.setPassword(password);
 		UserDAO us = new UserDAO();
-		String pass2 = encrypt(user.getPassword());
+		String pass2 = encrypt(userAdd.getPassword());
+
 		for (User user : us.getAll()) { // String pass2=decrypt(user.getPassword());
 			int id = user.getId();
 			if (user.getNombre().equals(userAdd.getNombre())) {
 				userAdd.setPassword(pass2);
 				userAdd.setId(id);
 				us.update(userAdd);
-			} else {
-				alertAcount();
+				flag = true;
 			}
 		}
 		getusername.setText("");
 		getpassword.setText("");
+		if (flag == false) {
+			alertAcount();
+		}
 
 		try {
 			App.setRoot("login");
@@ -122,12 +127,12 @@ public class LoginController extends AController {
 		for (User user : us.getAll()) {
 			String pass2 = decrypt(user.getPassword());
 			if (user.getNombre().equals(userAdd.getNombre()) && pass2.equals(userAdd.getPassword())) {
-				userAdd=(User) new UserDAO().getByName(userAdd).toArray()[0];
+				userAdd = (User) new UserDAO().getByName(userAdd).toArray()[0];
 				login_user = userAdd;
 				try {
 					App.setRoot("post");
 				} catch (IOException e) {
-					
+
 					alertAcount2();
 				}
 			}
