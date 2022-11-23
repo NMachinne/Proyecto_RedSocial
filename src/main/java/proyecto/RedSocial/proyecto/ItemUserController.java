@@ -42,14 +42,20 @@ public class ItemUserController extends AController implements Initializable {
     
     UserDAO ud = new UserDAO();
 
+    /**
+     * permite dejar de seguir a un usuario
+     * @param event
+     */
     @FXML
     void unfollowUser(ActionEvent event) {
     	
     	ud.deleteFollow(new User(login_user.getId(), user.getId() + "", "", ""));
-    	System.out.println(login_user.getId());
-    	System.out.println(user.getId());
     }
 
+    /**
+	 * Prepara y asigna los datos de user y de Acontroller a las variables
+	 * @param user
+	 */
 	public void setData(User user) {
 			try {
 				Image img = new Image(getClass().getResourceAsStream(user.getAvatar()));

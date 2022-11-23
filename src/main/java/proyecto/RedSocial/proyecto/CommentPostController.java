@@ -44,8 +44,8 @@ public class CommentPostController extends AController {
 	void sendComment(ActionEvent event) {
 		
 		cd.save(new Comment(LocalDateTime.now().withNano(0) + "", textComment.getText(),new User(login_user.getId(), "", "", ""), new Post(post.getId(), "", "", "")));
-		post = new Post();
-		user = login_user;
+		refresh = true;
+		//user = login_user;
 		textComment.getScene().getWindow().hide();
 	}
 }

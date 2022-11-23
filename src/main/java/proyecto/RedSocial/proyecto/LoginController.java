@@ -56,6 +56,10 @@ public class LoginController extends AController {
 	private static final String SECRET_KEY = "my_super_secret_key";
 	private static final String SALT = "ssshhhhhhhhhhh!!!!";
 
+	/**
+	 * Permite crear una cuenta
+	 * 
+	 */
 	@FXML
 	void createaccount(ActionEvent event) {
 		User userAdd = new User();
@@ -79,7 +83,19 @@ public class LoginController extends AController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Vuelve a cargar login
+	 */
+	@FXML
+    void backToLogin(MouseEvent event) throws IOException{
+			App.setRoot("login");
+    }
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void recoverpasswd2(ActionEvent event) {
 

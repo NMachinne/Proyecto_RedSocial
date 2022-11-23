@@ -14,7 +14,7 @@ public class Exe {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 
 		if (!no) {

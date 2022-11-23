@@ -19,9 +19,10 @@ public class UserDAO extends ADAO<User> {
 	private final static String SELECTBYNAME = "SELECT id,nombre,password,avatar FROM user WHERE nombre=?";	
 	private final static String SELECTBYFOLLOWER = "SELECT id,id_usuario,null,null FROM follow WHERE id=?";
 	private final static String SELECTBYFOLLOWED = "SELECT id,id_usuario,null,null FROM follow WHERE id_usuario=?";
-	private final static String SELECTBYLIKE = "SELECT id_usuario,id_publicacion,fecha,null FROM likes WHERE id_usuario=? and id_publicacion=?";
+	private final static String SELECTBYLIKE = "SELECT id_usuario,id_publicacion,fecha,null FROM likes WHERE id_usuario=? AND id_publicacion=?";
 	private final static String SELECTBYLIKEPOST = "SELECT id_usuario,id_publicacion,fecha,null FROM likes WHERE id_publicacion=?";
 	private final static String SELECTBYFOLLOWBYID = "SELECT id,id_usuario,null,null FROM follow WHERE id=? AND id_usuario=?";
+	private final static String SELECTBYUSERPOST = "SELECT u.id,nombre,password,avatar FROM user u JOIN post p WHERE p.id_usuario=? AND u.id=? LIMIT 1";
 	private final static String SELECTALL = "SELECT id,nombre,password,avatar FROM user";
 	// Fin de las consultas
 
@@ -122,7 +123,17 @@ public class UserDAO extends ADAO<User> {
 
 	public Collection<User> getByFollowById(User user) {
 		try {
-			Collection<User> u = super.read(user, SELECTBYFOLLOWBYID, new Integer[] { 0,1});
+			Collection<User> u = super.read(user, SELECTBYFOLLOWBYID, new Integer[] {0,1});
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Collection<User> getByUserPost(User user) {
+		try {
+			Collection<User> u = super.read(user, SELECTBYUSERPOST, new Integer[] {0,1});
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();

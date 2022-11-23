@@ -11,6 +11,8 @@ public abstract class AController {
 
 	protected static User user;
 	
+	protected static boolean refresh;
+	
 	protected static String nameFollow;
 
 }

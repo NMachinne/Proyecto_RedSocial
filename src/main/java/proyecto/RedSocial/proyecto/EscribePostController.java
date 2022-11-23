@@ -43,16 +43,15 @@ public class EscribePostController extends AController {
 	void multiFileChooser(ActionEvent event) {
 		// LoginController lg=new LoginController();
 		FileChooser fc = new FileChooser();
-		fc.getExtensionFilters().add(new ExtensionFilter("IMG Files", "*.png", ".jpg", "*.*"));
-		List<File> f = fc.showOpenMultipleDialog(null);
+		fc.getExtensionFilters().add(new ExtensionFilter("Se permite png, jpg y bmp", "*.png", "*.jpg","*.bmp"));
+		File f = fc.showOpenDialog(null);
 
-		String nam = "";
-		String imagen = "";
-		for (File file : f) {
-			File fl = file.getAbsoluteFile();
-			nam = file.getAbsolutePath();
+			String nam = "";
+			String imagen = "";
+			File fl = f.getAbsoluteFile();
+			nam = f.getAbsolutePath();
 			imagen = encodeFileToBase64(fl);
-		}
+		
 
 		ruta.setText(nam);
 		p1.setLikes(new User(login_user.getId(), "", "", ""));
@@ -84,7 +83,7 @@ public class EscribePostController extends AController {
 		}
 	}
 
-	private static String encodeFileToBase64(File file) {
+	public static String encodeFileToBase64(File file) {
 		try {
 			byte[] fileContent = Files.readAllBytes(file.toPath());
 			return Base64.getEncoder().encodeToString(fileContent);

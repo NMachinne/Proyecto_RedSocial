@@ -68,6 +68,9 @@ public class FollowerController extends AController implements Initializable {
 
 	}
 	
+	/**
+	 * permite cargar una coleccion de seguidores
+	 */
 	public void loadFollowed() {
 		Collection<User> useres = new UserDAO().getByFollow(new User(user.getId(), "", "", ""));
 		User uaux= new User();
@@ -86,7 +89,9 @@ public class FollowerController extends AController implements Initializable {
 			}
 		}
 	}
-	
+	/**
+	 * permite cargar una coleccion de seguidos
+	 */
 	public void loadFollower() {
 		Collection<User> useres = new UserDAO().getByFollowed(new User(user.getId(), "", "", ""));
 		User uaux= new User();

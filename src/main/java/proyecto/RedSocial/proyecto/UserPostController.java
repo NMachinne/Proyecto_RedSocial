@@ -20,7 +20,7 @@ import proyecto.RedSocial.proyecto.model.Entity.Comment;
 import proyecto.RedSocial.proyecto.model.Entity.Post;
 import proyecto.RedSocial.proyecto.model.Entity.User;
 
-public class UserPostController extends AController implements Initializable {
+public class UserPostController extends AController{
 
 	@FXML
 	private Text comments;
@@ -53,6 +53,10 @@ public class UserPostController extends AController implements Initializable {
 	CommentDAO cd = new CommentDAO();
 	PostDAO pd = new PostDAO();
 
+	/**
+	 * Muestra el post seleccionado
+	 * @param event
+	 */
 	@FXML
 	void showUserPost(MouseEvent event) {
 		String r = null;
@@ -68,22 +72,20 @@ public class UserPostController extends AController implements Initializable {
 		
 	}
 
+	/**
+	 * Prepara y asigna los datos de post y de Acontroller a las variables
+	 * @param post
+	 */
 	public void setData(Post post) {
 		try {
 			imagePost.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(post.getMultimedia());
 		textComment.setText(post.getFecha() + "\n\n" + post.getTxt());
 		likes.setText(us.getByLikePost(new User(post.getId(), "", "", "")).size() + "");
 		comments.setText(cd.getById(new Comment("", "", new User(), new Post(post.getId(), "", "", ""))).size() + "");
 		panePost.setId(post.getId() + "");
-
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
 
 	}
 

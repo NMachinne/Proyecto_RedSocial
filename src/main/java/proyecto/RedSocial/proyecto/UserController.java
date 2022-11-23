@@ -1,8 +1,10 @@
 package proyecto.RedSocial.proyecto;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
@@ -29,8 +31,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 import proyecto.RedSocial.proyecto.model.Entity.Post;
 import proyecto.RedSocial.proyecto.model.Entity.User;
 import proyecto.RedSocial.proyecto.model.DAO.PostDAO;
@@ -53,6 +57,8 @@ public class UserController extends AController implements Initializable, Runnab
 
 	@FXML
 	private ImageView imgUser;
+	@FXML
+    private ImageView imgAdd;
 
 	@FXML
 	private Text nFollowed;
@@ -146,15 +152,20 @@ public class UserController extends AController implements Initializable, Runnab
 	 * vuelve al menu principal del usuario
 	 * 
 	 * @param event
+	 * @throws IOException
 	 */
 	@FXML
-	void backtoMenu(MouseEvent event) {
+	void backtoMenu(MouseEvent event) throws IOException {
 		try {
-			user = null;
-			App.setRoot("post");
-		} catch (IOException e) {
-			e.printStackTrace();
+			User paux = (User) new UserDAO().getByUserPost(new User(user.getId(), user.getId() + "", "", ""))
+					.toArray()[0];
+			user = paux;
+			// user = null;post = null;
+
+		} catch (Exception e) {
+
 		}
+		App.setRoot("post");
 	}
 
 	/**
@@ -181,14 +192,14 @@ public class UserController extends AController implements Initializable, Runnab
 
 		if (!delPost.isVisible()) {
 			delPost.setVisible(true);
-			imgUser.setVisible(true);
+			imgAdd.setVisible(true);
 			delPost.setDisable(false);
-			imgUser.setDisable(false);
+			imgAdd.setDisable(false);
 		} else {
 			delPost.setVisible(false);
-			imgUser.setVisible(false);
+			imgAdd.setVisible(false);
 			delPost.setDisable(true);
-			imgUser.setDisable(true);
+			imgAdd.setDisable(true);
 		}
 
 	}
@@ -220,7 +231,22 @@ public class UserController extends AController implements Initializable, Runnab
 	 */
 	@FXML
 	void imageChange(MouseEvent event) {
+		User u = new User();
+		UserDAO ud = new UserDAO();
+		EscribePostController epc = new EscribePostController();
+		FileChooser fc = new FileChooser();
+		fc.getExtensionFilters().add(new ExtensionFilter("Se permite png, jpg y bmp", "*.png", "*.jpg", "*.bmp"));
+		File f = fc.showOpenDialog(null);
 
+		String imagen = "";
+		File fl = f.getAbsoluteFile();
+		imagen = epc.encodeFileToBase64(fl);
+		ud.update(new User(login_user.getId(), login_user.getNombre(), login_user.getPassword(), imagen));
+		u.setAvatar(imagen);
+		try {
+			App.setRoot("user");
+		} catch (IOException e) {
+		}
 	}
 
 	/**
@@ -252,7 +278,6 @@ public class UserController extends AController implements Initializable, Runnab
 					++rows;
 				}
 				postGrid.add(apane, columns++, rows);
-				System.out.println(apane);
 
 				GridPane.setMargin(apane, new Insets(3));
 
@@ -275,22 +300,26 @@ public class UserController extends AController implements Initializable, Runnab
 		action = 0;
 		u = this;
 		getNameUser.setText(user.getNombre());
+		try {
+			imgUser.setImage(new Image(
+					new ByteArrayInputStream(Base64.getDecoder().decode(user.getAvatar()))));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		nPost.setText(pd.getAllByIdUser(new Post(user.getId(), "", "", "")).size() + "");
-		nFollowed.setText(ud.getByFollowed(user).size() + "");
-		nFollower.setText(ud.getByFollow(user).size() + "");
+		nFollowed.setText(ud.getByFollow(user).size() + "");
+		nFollower.setText(ud.getByFollowed(user).size() + "");
 		pd.getByIdUser(new Post(0, user.getId() + "", "", ""));
 		loadUserPost();
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+
 				Thread t = new Thread(u);
 				t.setDaemon(true);
 				t.start();
-				action =1;
 			}
-			
 		});
-
 	}
 
 	@Override
@@ -304,9 +333,9 @@ public class UserController extends AController implements Initializable, Runnab
 							Thread.sleep(1000);
 							try {
 								nPost.setText(pd.getAllByIdUser(new Post(uvar.getId(), "", "", "")).size() + "");
-
 								nFollowed.setText(ud.getByFollow(uvar).size() + "");
 								nFollower.setText(ud.getByFollowed(uvar).size() + "");
+								imgUser.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(uvar.getAvatar()))));
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -321,51 +350,48 @@ public class UserController extends AController implements Initializable, Runnab
 								follow = false;
 							}
 							if (follow) {
-								// followuser.setText("SIGUIENDO");
+								followuser.setText("SIGUIENDO");
 							} else {
-								// followuser.setText("SEGUIR");
+								followuser.setText("SEGUIR");
 							}
 							try {
-				        		if (post!= null) {
-				        			try {
+								if (post != null) {
+									try {
 										App.setRoot("post");
 										return;
 									} catch (IOException e) {
 										e.printStackTrace();
 									}
-				        		}
+								}
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 							Thread.sleep(1000);
-							
+
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
-					
-
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else if (action == 1) {
+		} else if (action == 1) {
 			while (true) {
-	        	try {
-	        		if (post!= null) {
-	        			try {
+				try {
+					if (post != null) {
+						try {
 							App.setRoot("post");
 							return;
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-	        		}
+					}
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-	        }
+			}
 		}
 	}
 }

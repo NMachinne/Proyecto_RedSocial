@@ -78,7 +78,7 @@ public class MariaDBDatabase extends MariaDBConnection {
 		String[] s = sql.split(";");
 		try {
 			MariaBDFileConnection fc = new MariaDBConnection().load();
-			conn = DriverManager.getConnection(uri+"/"+fc.getDb(),fc.getUser(),fc.getPass());
+			conn = DriverManager.getConnection(uri+"/",fc.getUser(),fc.getPass());
 			PreparedStatement ps = null;
 			while (i < s.length) {
 				ps = conn.prepareStatement(s[i]);
