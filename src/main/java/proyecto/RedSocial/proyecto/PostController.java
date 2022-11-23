@@ -177,8 +177,6 @@ public class PostController extends AController implements Initializable, Runnab
 									new ByteArrayInputStream(Base64.getDecoder().decode(post.getMultimedia()))));
 						} catch (Exception e) {
 						}
-						System.out.println(user);
-
 						post_texto.setText("Fecha: " + post.getFecha() + "\nUsuario: " + user.getNombre() + "\n\n"
 								+ post.getTxt());
 						Collection<Comment> comment2 = null;

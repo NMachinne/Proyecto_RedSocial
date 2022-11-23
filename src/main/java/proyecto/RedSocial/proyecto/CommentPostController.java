@@ -40,12 +40,14 @@ public class CommentPostController extends AController {
 
 	CommentDAO cd = new CommentDAO();
 	UserDAO ud = new UserDAO();
+
 	@FXML
 	void sendComment(ActionEvent event) {
-		
-		cd.save(new Comment(LocalDateTime.now().withNano(0) + "", textComment.getText(),new User(login_user.getId(), "", "", ""), new Post(post.getId(), "", "", "")));
+
+		cd.save(new Comment(LocalDateTime.now().withNano(0) + "", textComment.getText(),
+				new User(login_user.getId(), "", "", ""), new Post(post.getId(), "", "", "")));
 		refresh = true;
-		//user = login_user;
+		// user = login_user;
 		textComment.getScene().getWindow().hide();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ import proyecto.RedSocial.proyecto.model.Entity.User;
 import proyecto.RedSocial.proyecto.model.DAO.PostDAO;
 import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 
-public class FollowerController extends AController implements Initializable {
+public class FollowerController extends AController implements Initializable, Runnable {
 
 	// variables de la lista de seguidos/seguidores con el archivo follow-ed.fxml
 	@FXML
@@ -42,7 +43,7 @@ public class FollowerController extends AController implements Initializable {
 
 	@FXML
 	private Text getnameFollow;
-	
+	private static FollowerController f;
 
 	/**
 	 * permite volver al perfil del usuario
@@ -57,24 +58,12 @@ public class FollowerController extends AController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		getnameFollow.setText(nameFollow);
-		if (nameFollow.equals("Follower")) {
-			loadFollower();
-		} else {
-			loadFollowed();
-		}
-
-	}
-	
 	/**
 	 * permite cargar una coleccion de seguidores
 	 */
 	public void loadFollowed() {
 		Collection<User> useres = new UserDAO().getByFollow(new User(user.getId(), "", "", ""));
 		User uaux= new User();
-		System.out.println(useres);
 		for (int i = 0; i < useres.size(); i++) {
 			FXMLLoader fxmloader = new FXMLLoader();
 			fxmloader.setLocation(getClass().getResource("itemUser.fxml"));	
@@ -95,7 +84,6 @@ public class FollowerController extends AController implements Initializable {
 	public void loadFollower() {
 		Collection<User> useres = new UserDAO().getByFollowed(new User(user.getId(), "", "", ""));
 		User uaux= new User();
-		System.out.println(useres);
 		for (int i = 0; i < useres.size(); i++) {
 			FXMLLoader fxmloader = new FXMLLoader();
 			fxmloader.setLocation(getClass().getResource("itemUser.fxml"));	
@@ -109,6 +97,47 @@ public class FollowerController extends AController implements Initializable {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		getnameFollow.setText(nameFollow);
+		if (nameFollow.equals("Follower")) {
+			loadFollower();
+		} else {
+			loadFollowed();
+		}
+		f=this;
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				Thread t = new Thread(f);
+				t.setDaemon(true);
+				t.start();
+			}
+			
+		});
+	}
+	
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				if (refreshFollow) {
+					try {
+						refreshFollow = false;
+						App.setRoot("follow-ed");
+						return;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

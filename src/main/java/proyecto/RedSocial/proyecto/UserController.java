@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,22 +44,21 @@ import proyecto.RedSocial.proyecto.model.DAO.UserDAO;
 public class UserController extends AController implements Initializable, Runnable {
 
 	// variables para el perfil del usuario con el archivo user.fxml
-	@FXML
-	private Button delPost;
 
 	@FXML
 	private Button followuser;
 
 	@FXML
 	private Button editPerfil;
-
+	@FXML
+	private ToggleButton delPost;
 	@FXML
 	private Text getNameUser;
 
 	@FXML
 	private ImageView imgUser;
 	@FXML
-    private ImageView imgAdd;
+	private ImageView imgAdd;
 
 	@FXML
 	private Text nFollowed;
@@ -143,7 +143,7 @@ public class UserController extends AController implements Initializable, Runnab
 			nameFollow = idnameFollower.getText();
 			App.setRoot("follow-ed");
 		} catch (IOException e) {
-			System.out.println(e);
+			
 		}
 
 	}
@@ -211,17 +211,11 @@ public class UserController extends AController implements Initializable, Runnab
 	 */
 	@FXML
 	void selectedPostDeleted(ActionEvent event) {
-
-	}
-
-	/**
-	 * Permite editar los post del usuario
-	 * 
-	 * @param event
-	 */
-	@FXML
-	void selectedPostEdit(ActionEvent event) {
-
+		isPostDel = delPost.isSelected();
+		action =2;
+		Thread t = new Thread(u);
+		t.setDaemon(true);
+		t.start();
 	}
 
 	/**
@@ -243,19 +237,14 @@ public class UserController extends AController implements Initializable, Runnab
 		imagen = epc.encodeFileToBase64(fl);
 		ud.update(new User(login_user.getId(), login_user.getNombre(), login_user.getPassword(), imagen));
 		u.setAvatar(imagen);
+
+		user = (User) ud.getById(login_user).toArray()[0];
+		login_user = (User) ud.getById(login_user).toArray()[0];
+
 		try {
 			App.setRoot("user");
 		} catch (IOException e) {
 		}
-	}
-
-	/**
-	 * Deja de seguir al usuario
-	 * 
-	 * @param event
-	 */
-	@FXML
-	void unfollowUser(ActionEvent event) {
 
 	}
 
@@ -280,7 +269,6 @@ public class UserController extends AController implements Initializable, Runnab
 				postGrid.add(apane, columns++, rows);
 
 				GridPane.setMargin(apane, new Insets(3));
-
 			}
 
 		} catch (IOException e) {
@@ -300,12 +288,6 @@ public class UserController extends AController implements Initializable, Runnab
 		action = 0;
 		u = this;
 		getNameUser.setText(user.getNombre());
-		try {
-			imgUser.setImage(new Image(
-					new ByteArrayInputStream(Base64.getDecoder().decode(user.getAvatar()))));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		nPost.setText(pd.getAllByIdUser(new Post(user.getId(), "", "", "")).size() + "");
 		nFollowed.setText(ud.getByFollow(user).size() + "");
 		nFollower.setText(ud.getByFollowed(user).size() + "");
@@ -314,7 +296,6 @@ public class UserController extends AController implements Initializable, Runnab
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-
 				Thread t = new Thread(u);
 				t.setDaemon(true);
 				t.start();
@@ -335,9 +316,10 @@ public class UserController extends AController implements Initializable, Runnab
 								nPost.setText(pd.getAllByIdUser(new Post(uvar.getId(), "", "", "")).size() + "");
 								nFollowed.setText(ud.getByFollow(uvar).size() + "");
 								nFollower.setText(ud.getByFollowed(uvar).size() + "");
-								imgUser.setImage(new Image(new ByteArrayInputStream(Base64.getDecoder().decode(uvar.getAvatar()))));
+								imgUser.setImage(new Image(
+										new ByteArrayInputStream(Base64.getDecoder().decode(uvar.getAvatar()))));
 							} catch (Exception e) {
-								e.printStackTrace();
+
 							}
 							boolean follow = false;
 							try {
@@ -382,6 +364,23 @@ public class UserController extends AController implements Initializable, Runnab
 					if (post != null) {
 						try {
 							App.setRoot("post");
+							return;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (action == 2) {
+			while (true) {
+				try {
+					if (refreshDelete) {
+						try {
+							refreshDelete = false;
+							App.setRoot("user");
 							return;
 						} catch (IOException e) {
 							e.printStackTrace();

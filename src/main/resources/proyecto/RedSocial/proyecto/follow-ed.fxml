@@ -10,20 +10,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.FollowerController">
    <children>
-      <AnchorPane layoutX="6.0">
+      <AnchorPane layoutX="6.0" style="-fx-background-color: #6a37f4;">
          <children>
-            <AnchorPane layoutX="-5.0" prefHeight="88.0" prefWidth="398.0">
+            <AnchorPane layoutX="-5.0" prefHeight="88.0" prefWidth="398.0" style="-fx-background-color: #6a37f4;">
                <children>
-                  <Text fx:id="getnameFollow" layoutX="142.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="getname">
+                  <Text fx:id="getnameFollow" fill="WHITE" layoutX="142.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="getname">
                      <font>
-                        <Font size="25.0" />
+                        <Font name="Dosis SemiBold" size="25.0" />
                      </font></Text>
                   <ImageView fitHeight="50.0" fitWidth="48.0" layoutX="7.0" layoutY="5.0" onMouseClicked="#backtoPerfil" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../img/leftArrow.png" />
                      </image></ImageView>
                </children></AnchorPane>
-            <AnchorPane layoutX="-5.0" layoutY="71.0" prefHeight="326.0" prefWidth="396.0">
+            <AnchorPane layoutX="-5.0" layoutY="71.0" prefHeight="326.0" prefWidth="396.0" style="-fx-background-color: #6a37f4;">
                <children>
                   <ScrollPane fx:id="followUser" hbarPolicy="NEVER" layoutX="3.0" layoutY="15.0" prefHeight="310.0" prefWidth="391.0" vbarPolicy="ALWAYS">
                      <content>

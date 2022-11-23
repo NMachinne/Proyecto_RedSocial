@@ -13,7 +13,7 @@ public class UserDAO extends ADAO<User> {
 	private final static String INSERTFOLLOW = "INSERT INTO follow (id,id_usuario) VALUES (?,?)";
 	private final static String UPDATE = "UPDATE user SET nombre=?,password=?,avatar=? WHERE id=?";
 	private final static String DELETE = "DELETE FROM user WHERE id=?";
-	private final static String DELETEFOLLOW = "DELETE FROM follow WHERE id_usuario=? AND id=?";
+	private final static String DELETEFOLLOW = "DELETE FROM follow WHERE id=? AND id_usuario=?";
 	private final static String DELETELIKE = "DELETE FROM likes WHERE id_usuario=? and id_publicacion=?";
 	private final static String SELECTBYID = "SELECT id,nombre,password,avatar FROM user WHERE id=?";
 	private final static String SELECTBYNAME = "SELECT id,nombre,password,avatar FROM user WHERE nombre=?";	

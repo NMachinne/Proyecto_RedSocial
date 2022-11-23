@@ -3,9 +3,12 @@ package proyecto.RedSocial.proyecto;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,13 +65,28 @@ public class UserPostController extends AController{
 		String r = null;
 		try {
 			r = event.getPickResult().getIntersectedNode().toString().split("=")[1];
-			r = r.split("]")[0];
-			
+			r = r.split("]")[0];		
 		} catch (Exception e) {
 			r = null;
 		}
 		int num = Integer.parseInt(r);
-		post = (Post) pd.getById(new Post(num,"","","")).toArray()[0];
+		if (isPostDel) {
+			Post paux = (Post) pd.getById(new Post(num,"","","")).toArray()[0];
+			Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+			al.setHeaderText("are you SURE you want to DELETE the post? \n" +" with date time  "+ paux.getFecha());
+			al.setTitle("DELETE POST");
+			Optional<ButtonType> result = al.showAndWait();
+			if (result.isEmpty()) {	
+			} else if (result.get() == ButtonType.OK) {
+				pd.delete(new Post(num, "", "", ""));
+				refreshDelete = true;
+			} else if (result.get() == ButtonType.CANCEL) {
+				
+			} 
+		} else {
+			post = (Post) pd.getById(new Post(num,"","","")).toArray()[0];
+		}
+		
 		
 	}
 
