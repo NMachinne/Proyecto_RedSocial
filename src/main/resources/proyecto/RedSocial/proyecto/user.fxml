@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #6a37f4;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #6a37f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserController">
    <children>
       <AnchorPane prefHeight="491.0" prefWidth="399.0">
          <children>
@@ -41,7 +41,7 @@
                         </Pane>
                         <Pane prefHeight="98.0" prefWidth="89.0">
                            <children>
-                              <Text fx:id="nFollower" fill="WHITE" layoutX="18.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nFollower" textAlignment="CENTER">
+                              <Text fx:id="nFollower" fill="WHITE" layoutX="18.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="nFollower" textAlignment="CENTER">
                                  <font>
                                     <Font name="Dosis SemiBold" size="12.0" />
                                  </font></Text>
@@ -83,11 +83,11 @@
                   <Button fx:id="followuser" layoutX="192.0" layoutY="114.0" mnemonicParsing="false" onAction="#follow" prefHeight="28.0" prefWidth="146.0" text="SEGUIR" visible="false" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutY="160.0" prefHeight="269.0" prefWidth="395.0">
+            <AnchorPane layoutY="160.0" prefHeight="269.0" prefWidth="395.0" style="-fx-background-color: #9361ed;">
                <children>
-                  <ScrollPane fx:id="userPosts" hbarPolicy="NEVER" layoutX="6.0" prefHeight="284.0" prefWidth="387.0" style="-fx-background-color: #bb86e9;" styleClass="tr" vbarPolicy="ALWAYS">
+                  <ScrollPane fx:id="userPosts" hbarPolicy="NEVER" layoutX="6.0" prefHeight="284.0" prefWidth="387.0" styleClass="tr" vbarPolicy="ALWAYS">
                      <content>
-                        <GridPane fx:id="postGrid" alignment="CENTER" prefHeight="15.0" prefWidth="3.0">
+                        <GridPane fx:id="postGrid" alignment="TOP_CENTER" prefHeight="4.0" prefWidth="6.0">
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>

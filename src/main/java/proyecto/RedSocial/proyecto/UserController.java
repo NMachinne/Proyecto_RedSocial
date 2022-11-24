@@ -143,7 +143,7 @@ public class UserController extends AController implements Initializable, Runnab
 			nameFollow = idnameFollower.getText();
 			App.setRoot("follow-ed");
 		} catch (IOException e) {
-			
+
 		}
 
 	}
@@ -212,7 +212,7 @@ public class UserController extends AController implements Initializable, Runnab
 	@FXML
 	void selectedPostDeleted(ActionEvent event) {
 		isPostDel = delPost.isSelected();
-		action =2;
+		action = 2;
 		Thread t = new Thread(u);
 		t.setDaemon(true);
 		t.start();
@@ -325,8 +325,7 @@ public class UserController extends AController implements Initializable, Runnab
 							try {
 								if (new UserDAO()
 										.getByFollowById(new User(login_user.getId(), user.getId() + "", "", ""))
-										.toArray()[0] != null)
-									;
+										.toArray()[0] != null);
 								follow = true;
 							} catch (Exception e) {
 								follow = false;

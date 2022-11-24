@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="postUserId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showUserPost" prefHeight="170.0" prefWidth="150.0" style="-fx-background-color: #6936f5;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserPostController">
+<AnchorPane fx:id="postUserId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showUserPost" prefHeight="170.0" prefWidth="150.0" style="-fx-background-color: #6936f5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.RedSocial.proyecto.UserPostController">
    <children>
       <VBox alignment="CENTER" prefHeight="153.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
@@ -45,6 +45,6 @@
          </children>
       </VBox>
       <Pane fx:id="panePost" prefHeight="116.0" prefWidth="151.0" />
-      <Pane fx:id="panePost1" layoutY="146.0" prefHeight="24.0" prefWidth="151.0" />
+      <Pane layoutY="146.0" prefHeight="24.0" prefWidth="151.0" />
    </children>
 </AnchorPane>
